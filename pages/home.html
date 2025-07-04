@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <title>Caderno</title>
+</head>
+<body>
+    <!--Player de música-->
+    <div id="player-container" class="player-container">
+        <div class="music-player">
+            <nav>
+                <div class="circle">
+                    <i class="fa-solid fa-angle-left"></i>
+                </div>
+                <div class="circle">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </nav>
+            <audio id="song">
+                <source src="../assets/musics/With You - Linkin Park (Hybrid Theory).mp3" type="audio/mpeg">
+            </audio>
+            <input type="range" value="0" id="progress">
+
+            <div class="controls">
+                <div onclick="prevSong()"><i class="fa-solid fa-backward"></i></div>
+                <div onclick="playPause()"><i class="fa-solid fa-play" id="ctrlIcon"></i></div>
+                <div onclick="nextSong()"><i class="fa-solid fa-forward"></i></div>
+            </div>
+
+        </div>
+    </div>
+    <!--Livro-->
+    <div id="book" class="book">
+        <!--Folha 1-->
+        <div id="p1" class="paper">
+            <div class="front">
+                <div id="f1" class="front-content">
+                    <img class="capa_caderno" src="../assets/img/capa_caderno.png" alt="capa">
+                </div>
+            </div>
+            <div class="back">
+                <div id="b1" class="back-content">
+                </div>
+            </div>
+        </div>
+                <!--Folha 2-->
+        <div id="p2" class="paper">
+            <div class="front">
+                <div id="f2" class="front-content">
+                    <img class="pagina_1" src="../assets/img/pagina_1.png" alt="capa">
+                </div>
+            </div>
+            <div class="back">
+                <div id="b2" class="back-content">
+                </div>
+            </div>
+        </div>
+                <!--Folha 3-->
+        <div id="p3" class="paper">
+            <div class="front">
+                <div id="f3" class="front-content">
+                </div>
+            </div>
+            <div class="back">
+                <div id="b3" class="back-content">
+                    <img class="capa_traseira" src="../assets/img/capa_traseira.png" alt="capa">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="buttons" id="buttons">
+        <button id="prev-btn">
+            <i class="fas fa-arrow-circle-left"></i>
+        </button>
+        <button id="next-btn">
+            <i class="fas fa-arrow-circle-right"></i>
+        </button>
+    </div>
+    <script>
+        let progress = document.getElementById("progress");
+        let song = document.getElementById("song");
+        let ctrlIcon = document.getElementById("ctrlIcon");
+
+        song.onloadedmetadata = function() {
+            progress.max = song.duration;
+            progress.value = song.currentTime;
+        }
+
+        function playPause() {
+            if(ctrlIcon.classList.contains("fa-pause")){
+                song.pause();
+                ctrlIcon.classList.remove("fa-pause");
+                ctrlIcon.classList.add("fa-play");
+            } else {
+                song.play();
+                ctrlIcon.classList.add("fa-pause");
+                ctrlIcon.classList.remove("fa-play");
+            }
+        }
+
+        if(song.play()){
+            setInterval(()=>{
+                progress.value = song.currentTime;
+            },500);
+        }
+
+        progress.onchange = function() {
+            song.play();
+            song.currentTime = progress.value;
+            ctrlIcon.classList.add("fa-pause");
+            ctrlIcon.classList.remove("fa-play");
+        }
+
+        const songs = [
+        { title: "With You", file: "../assets/musics/With You - Linkin Park (Hybrid Theory).mp3" },
+        { title: "There's Nothing Holding me Back", file: "../assets/musics/Shawn Mendes ‒ There's Nothing Holding Me Back.mp3" }
+        ];
+
+        let currentSongIndex = 0;
+
+        function loadSong(index) {
+        song.src = songs[index].file;
+        song.load();
+        song.play();
+        ctrlIcon.classList.add("fa-pause");
+        ctrlIcon.classList.remove("fa-play");
+        }
+
+        function nextSong() {
+        currentSongIndex++;
+        if (currentSongIndex >= songs.length) {
+        currentSongIndex = 0;
+        }
+        loadSong(currentSongIndex);
+        }
+
+        function prevSong() {
+        currentSongIndex--;
+        if (currentSongIndex < 0) {
+        currentSongIndex = songs.length - 1;
+        }
+        loadSong(currentSongIndex);
+        }
+
+
+
+
+    </script>
+    <script src="../assets/js/home.js"></script>
+</body>
+</html>

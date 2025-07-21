@@ -5,12 +5,13 @@ const book = document.querySelector("#book");
 const paper1 = document.querySelector("#p1");
 const paper2 = document.querySelector("#p2");
 const paper3 = document.querySelector("#p3");
+const paperultima = document.querySelector("#pultima");
 
 prevBtn.addEventListener("click", goPrevPage);
 nextBtn.addEventListener("click", goNextPage);
 
 let currentLocation = 1;
-let numOfPapers = 3;
+let numOfPapers = 4;
 let maxLocation = numOfPapers + 1;
 
 function openBook() {
@@ -34,7 +35,7 @@ function closeBook(isAtBeggining) {
         book.style.transform = "translateX(100vw)";
     }
     book.classList.remove("open")
-    book.style.transform = "translateX(0vw)";
+    //book.style.transform = "translateX(0vw)";
     prevBtn.style.transform = "translateX(0)";
     nextBtn.style.transform = "translateX(0)";
 }
@@ -55,6 +56,10 @@ function goNextPage() {
                 paper3.classList.add("flipped");
                 paper3.style.zIndex = 3;
                 break;
+            case 4:
+                paperultima.classList.add("flipped");
+                paperultima.style.zIndex = 4;
+                break;
             default:
                 throw new Error("Unknow state");
         }
@@ -66,18 +71,23 @@ function goPrevPage() {
         if(currentLocation > 1) {
         switch(currentLocation) {
             case 2:
-                closeBook();
+                closeBook(true);
                 paper1.classList.remove("flipped");
-                paper1.style.zIndex = 3;
+                paper1.style.zIndex = 4;
                 break;
             case 3:
                 paper2.classList.remove("flipped");
-                paper2.classList.zIndex = 2;
+                paper2.style.zIndex = 3;
                 break;
             case 4:
                 openBook();
                 paper3.classList.remove("flipped");
-                paper3.style.zIndex = 1;
+                paper3.style.zIndex = 2;
+                break;
+            case 5:
+                openBook();
+                paperultima.classList.remove("flipped");
+                paperultima.style.zIndex = 1;
                 break;
             default:
                 throw new Error("Unknow state");

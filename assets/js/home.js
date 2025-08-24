@@ -5,14 +5,15 @@ const book = document.querySelector("#book");
 const paper1 = document.querySelector("#p1");
 const paper2 = document.querySelector("#p2");
 const paper3 = document.querySelector("#p3");
+const paper4 = document.querySelector("#p4");
 const paperultima = document.querySelector("#pultima");
 
 prevBtn.addEventListener("click", goPrevPage);
 nextBtn.addEventListener("click", goNextPage);
 
 let currentLocation = 1;
-let numOfPapers = 4;
-let maxLocation = numOfPapers + 1;
+let numOfPapers = 5;
+let maxLocation = numOfPapers + 1
 
 function openBook() {
     book.classList.add("open");
@@ -57,8 +58,12 @@ function goNextPage() {
                 paper3.style.zIndex = 3;
                 break;
             case 4:
+                paper4.classList.add("flipped");
+                paper4.style.zIndex = 4;
+                break;
+            case 5:
                 paperultima.classList.add("flipped");
-                paperultima.style.zIndex = 4;
+                paperultima.style.zIndex = 5;
                 break;
             default:
                 throw new Error("Unknow state");
@@ -73,18 +78,21 @@ function goPrevPage() {
             case 2:
                 closeBook(true);
                 paper1.classList.remove("flipped");
-                paper1.style.zIndex = 4;
+                paper1.style.zIndex = 5;
                 break;
             case 3:
                 paper2.classList.remove("flipped");
-                paper2.style.zIndex = 3;
+                paper2.style.zIndex = 4;
                 break;
             case 4:
-                openBook();
                 paper3.classList.remove("flipped");
-                paper3.style.zIndex = 2;
+                paper3.style.zIndex = 3;
                 break;
             case 5:
+                paper4.classList.remove("flipped");
+                paper4.style.zIndex = 2;
+                break;
+            case 6:
                 openBook();
                 paperultima.classList.remove("flipped");
                 paperultima.style.zIndex = 1;

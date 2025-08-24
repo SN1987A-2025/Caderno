@@ -20,7 +20,6 @@
                 </div>
             </nav>
             <audio id="song">
-                <source src="../assets/musics/With You - Linkin Park (Hybrid Theory).mp3" type="audio/mpeg">
             </audio>
             <input type="range" value="0" id="progress">
 
@@ -72,11 +71,24 @@
                 </div>
             </div>
         </div>
+            <!--Folha 4-->
+        <div id="p4" class="paper">
+            <div class="front">
+                <div id="f4" class="front-content">
+                    <img class="pagina_3" src="../assets/img/pagina_3.png" width="350" height="500" alt="capa">
+                </div>
+            </div>
+            <div class="back">
+                <div id="b4" class="back-content">
+                    <img class=""  width="350" height="500" alt="">
+                </div>
+            </div>
+        </div>
                 <!--Folha ultima-->
         <div id="pultima" class="paper">
             <div class="front">
                 <div id="fultima" class="front-content">
-                    <img class="pagina_2" src="../assets/img/pagina_3.png" width="350" height="500" alt="capa">
+                    <img class="pagina_2" src="../assets/img/pagina_4.png" width="350" height="500" alt="capa">
                 </div>
             </div>
             <div class="back">
@@ -117,12 +129,6 @@
             }
         }
 
-        if(song.play()){
-            setInterval(()=>{
-                progress.value = song.currentTime;
-            },500);
-        }
-
         progress.onchange = function() {
             song.play();
             song.currentTime = progress.value;
@@ -131,11 +137,14 @@
         }
 
         const songs = [
-        { title: "With You", file: "../assets/musics/With You - Linkin Park (Hybrid Theory).mp3" },
-        { title: "There's Nothing Holding me Back", file: "../assets/musics/Shawn Mendes ‒ There's Nothing Holding Me Back.mp3" }
+        { title : "Gunslinger", file: "../assets/musics/Gunslinger - Avenged Sevenfold.mp3" },
+        { title: "Until I Found You", file: "../assets/musics/Until I Found You - Stephen Sanchez.mp3"},
+        { title: "There's Nothing Holding me Back", file: "../assets/musics/Shawn Mendes ‒ There's Nothing Holding Me Back.mp3" },
+        { title: "With You", file: "../assets/musics/With You - Linkin Park (Hybrid Theory).mp3" }
         ];
 
         let currentSongIndex = 0;
+        loadSong(currentSongIndex);
 
         function loadSong(index) {
         song.src = songs[index].file;
@@ -144,6 +153,14 @@
         ctrlIcon.classList.add("fa-pause");
         ctrlIcon.classList.remove("fa-play");
         }
+
+        song.addEventListener("timeupdate", () => {
+            progress.value = song.currentTime;
+        });
+
+        song.addEventListener("ended", () => {
+            nextSong();
+        });
 
         function nextSong() {
         currentSongIndex++;
@@ -160,8 +177,6 @@
         }
         loadSong(currentSongIndex);
         }
-
-
 
 
     </script>
